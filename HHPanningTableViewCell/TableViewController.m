@@ -48,7 +48,7 @@
 	self = [super initWithNibName:@"TableViewController" bundle:nil];
 	
 	if (self != nil) {
-		self.rowTitles = [NSArray arrayWithObjects:@"Pan direction: None", @"Pan direction: Right", @"Pan direction: Left", @"Pan direction: Both", nil];
+		self.rowTitles = [NSArray arrayWithObjects:@"Pan direction: None", @"Pan direction: Right", @"Pan direction: Left", @"Pan direction: Both", @"Custom trigger", nil];
 	}
 	
 	return self;
@@ -111,7 +111,14 @@
 		drawerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dark_dotted"]];
 		
 		cell.drawerView = drawerView;
-		cell.directionMask = indexPath.row;
+        if (indexPath.row < 4) {
+            cell.directionMask = indexPath.row;
+        }
+        else {
+            cell.directionMask = HHPanningTableViewCellDirectionLeft + HHPanningTableViewCellDirectionRight;
+            cell.delegate = self;
+        }
+		
 	}
     
 	cell.textLabel.text = [self.rowTitles objectAtIndex:indexPath.row];
@@ -140,6 +147,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+#pragma mark -
+#pragma mark HHPanningTableViewCellDelegate
+
+- (void)panningTableViewCellDidTrigger:(HHPanningTableViewCell *)cell inDirection:(HHPanningTableViewCellDirection)direction
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Custom Action"
+                                                    message:@"You triggered a custom action"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end
