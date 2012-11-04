@@ -27,9 +27,10 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "HHPanningTableViewCell.h"
 
 
-@interface TableViewController : UITableViewController
+@interface TableViewController : UITableViewController <HHPanningTableViewCellDelegate>
 
 - (id)init;
 

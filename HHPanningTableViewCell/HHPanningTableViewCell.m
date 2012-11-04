@@ -36,9 +36,11 @@
 
 
 #define HH_PANNING_ANIMATION_DURATION		0.1f
-#define HH_PANNING_BOUNCE_DISTANCE			20.0f
-#define HH_PANNING_MINIMUM_PAN				50.0f
+#define HH_PANNING_BOUNCE_DISTANCE			10.0f
+#define HH_PANNING_MINIMUM_PAN				1.0f
+#define HH_PANNING_MAXIMUM_PAN              0.0f //Set to 0.0f for full view width
 #define HH_PANNING_TRIGGER_OFFSET			100.0f
+#define HH_PANNING_USE_VELOCITY             YES
 
 
 @interface HHPanningTableViewCell () <UIGestureRecognizerDelegate>
@@ -418,7 +420,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		
 		containerViewFrame.origin.x = self.panOriginX + totalPanX;
 		
-		CGFloat width = self.bounds.size.width;
+        CGFloat width = (HH_PANNING_MAXIMUM_PAN > 0.0f) ? HH_PANNING_MAXIMUM_PAN : self.bounds.size.width;
 		NSInteger directionMask = self.directionMask;
 		CGFloat leftLimit = (directionMask & HHPanningTableViewCellDirectionLeft) ? (-1.0 * width) : 0.0f;
 		CGFloat rightLimit = (directionMask & HHPanningTableViewCellDirectionRight) ? width : 0.0f;
@@ -443,6 +445,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		HHPanningTableViewCellDirection panDirection = (totalPanX > 0.0f) ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
 		HHPanningTableViewCellDirection normalizedPanDirection = drawerRevealed ? HHOppositeDirection(panDirection) : panDirection;
 		NSInteger directionMask = self.directionMask;
+        BOOL isDelegateTrigger = [self.delegate respondsToSelector:@selector(panningTableViewCellDidTrigger:inDirection:)];
 
 		if (drawerRevealed) {
 			directionMask = isOffsetRight ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
@@ -454,7 +457,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 			if (fabsf(totalPanX) > triggerOffset) {
 				drawerRevealed = !drawerRevealed;
 			}
-			else {
+			else if (HH_PANNING_USE_VELOCITY) {
 				CGPoint velocity = [gestureRecognizer velocityInView:self];
 				CGFloat velocityX = velocity.x;
 				
@@ -470,7 +473,13 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 			direction = isOffsetRight ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
 		}
 		
-		[self setDrawerRevealed:drawerRevealed direction:direction animated:YES];
+        if (isDelegateTrigger && (drawerRevealed != drawerWasRevealed)) {
+            [self setDrawerRevealed:NO direction:direction animated:YES];
+            [self.delegate panningTableViewCellDidTrigger:self inDirection:panDirection];
+        }
+        else {
+            [self setDrawerRevealed:drawerRevealed direction:direction animated:YES];
+        }
 		
 		self.panning = NO;
 	}

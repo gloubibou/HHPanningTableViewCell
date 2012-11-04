@@ -32,6 +32,7 @@ The code presented here is identical to the one used in the shipped product.
 * Use HHPanningTableViewCell instances for your table cells
 * Set a panning direction mask on the cells
 * Provide a drawer view for the cells
+* Optionally, implement the HHPanningTableViewCellDelegate method to trigger your own custom action.
 * Refer to the demo application for details
 
 ## License
