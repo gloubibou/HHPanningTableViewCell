@@ -28,11 +28,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class HHPanningTableViewCell;
+
 
 typedef enum {
 	HHPanningTableViewCellDirectionRight = UISwipeGestureRecognizerDirectionRight,
 	HHPanningTableViewCellDirectionLeft = UISwipeGestureRecognizerDirectionLeft,
 } HHPanningTableViewCellDirection;
+
+@protocol HHPanningTableViewCellDelegate <NSObject>
+@optional
+
+//If implemented this this will be triggered instead of fully revealing
+- (void)panningTableViewCellDidTrigger:(HHPanningTableViewCell *)cell inDirection:(HHPanningTableViewCellDirection)direction;
+
+@end
 
 
 @interface HHPanningTableViewCell : UITableViewCell
@@ -44,6 +54,7 @@ typedef enum {
 
 @property (nonatomic, assign)				NSInteger							directionMask;
 @property (nonatomic, assign)				BOOL								shouldBounce;
+@property (nonatomic, strong)               id<HHPanningTableViewCellDelegate>  delegate;
 
 - (BOOL)isDrawerRevealed;
 - (void)setDrawerRevealed:(BOOL)revealed animated:(BOOL)animated;
