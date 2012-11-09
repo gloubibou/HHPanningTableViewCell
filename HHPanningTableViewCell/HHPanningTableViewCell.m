@@ -489,6 +489,10 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 {
 	[super layoutSubviews];
 		
+    if (self.isPanning) {
+        return;
+    }
+
 	UIView* cellView = self;
 	UIView* containerView = self.containerView;
 	UIView* drawerView = self.drawerView;
