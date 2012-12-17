@@ -488,43 +488,38 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-		
+    
     if (self.isPanning) {
         return;
     }
-
+    
 	UIView* cellView = self;
 	UIView* containerView = self.containerView;
 	UIView* drawerView = self.drawerView;
 	UIView* shadowView = self.shadowView;
 	UIView* backgroundView = self.backgroundView;
 	UIView* contentView = self.contentView;
-			
+    
 	if (!self.animationInProgress) {
 		CGRect cellBounds = [cellView bounds];
-		CGRect contentBounds = [contentView bounds];
-		CGRect containerFrame = cellBounds;
-		
-		containerFrame.size.height = contentBounds.size.height;
-
+        CGRect containerFrame = [containerView frame];
+        
+        containerFrame.size.height = cellBounds.size.height;
+        containerFrame.size.width = cellBounds.size.width;
+        
 		if (self.drawerRevealed) {
-			CGRect frame = [containerView frame];
-			
-			frame.size.height = contentBounds.size.height;
-			frame.size.width = contentBounds.size.width;
-
-			if (frame.origin.x > cellBounds.origin.x) {
-				frame.origin.x = cellBounds.origin.x + cellBounds.size.width;
+			if (containerFrame.origin.x > cellBounds.origin.x) {
+				containerFrame.origin.x = cellBounds.origin.x + cellBounds.size.width;
 			}
 			else {
-				frame.origin.x = cellBounds.origin.x - cellBounds.size.width;
+				containerFrame.origin.x = cellBounds.origin.x - cellBounds.size.width;
 			}
 			
-			[containerView setFrame:frame];
+			[containerView setFrame:containerFrame];
 			
 			[containerView addSubview:backgroundView];
 			[containerView addSubview:contentView];
-		
+            
 			[self insertSubview:drawerView belowSubview:containerView];
 			[self insertSubview:shadowView aboveSubview:drawerView];
 		}
@@ -561,8 +556,9 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		
 		[containerView insertSubview:subview atIndex:0];
 	}
-
-	[drawerView setFrame:contentView.frame];
+    
+	[drawerView setFrame:[cellView bounds]];
+    
 	[self updateShadowFrame];
 }
 
@@ -578,12 +574,12 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 	shadowFrame.size.width *= 2.0;
 	
 	if (containerFrame.origin.x < cellBounds.origin.x) {
-		shadowFrame.origin.x = containerFrame.origin.x + containerFrame.size.width;
+        shadowFrame.origin.x = containerFrame.origin.x + containerFrame.size.width;
 	}
 	else {
-		shadowFrame.origin.x = shadowFrame.origin.x - shadowFrame.size.width;
+        shadowFrame.origin.x = containerFrame.origin.x - shadowFrame.size.width;
 	}
-	
+    
 	[shadowView setFrame:shadowFrame];
 }
 
