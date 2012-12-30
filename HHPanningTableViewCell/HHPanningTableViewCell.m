@@ -498,8 +498,9 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 	UIView* drawerView = self.drawerView;
 	UIView* shadowView = self.shadowView;
 	UIView* backgroundView = self.backgroundView;
+	UIView* accessoryView = self.accessoryView;
 	UIView* contentView = self.contentView;
-    
+
 	if (!self.animationInProgress) {
 		CGRect cellBounds = [cellView bounds];
         CGRect containerFrame = [containerView frame];
@@ -518,6 +519,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 			[containerView setFrame:containerFrame];
 			
 			[containerView addSubview:backgroundView];
+			[containerView addSubview:accessoryView];
 			[containerView addSubview:contentView];
             
 			[self insertSubview:drawerView belowSubview:containerView];
@@ -526,6 +528,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		else {
 			[containerView setFrame:containerFrame];
 			[containerView addSubview:backgroundView];
+			[containerView addSubview:accessoryView];
 			[containerView addSubview:contentView];
 			
 			[self addSubview:containerView];
@@ -549,7 +552,11 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		if (subview == backgroundView) {
 			continue;
 		}
-		
+
+		if (subview == accessoryView) {
+			continue;
+		}
+
 		if (subview == contentView) {
 			continue;
 		}
