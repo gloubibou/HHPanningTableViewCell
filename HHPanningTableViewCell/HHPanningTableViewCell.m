@@ -37,7 +37,7 @@
 
 #define HH_PANNING_ANIMATION_DURATION		0.1f
 #define HH_PANNING_BOUNCE_DISTANCE			10.0f
-#define HH_PANNING_MINIMUM_PAN				1.0f
+#define HH_PANNING_MINIMUM_PAN				50.0f
 #define HH_PANNING_MAXIMUM_PAN              0.0f //Set to 0.0f for full view width
 #define HH_PANNING_TRIGGER_OFFSET			100.0f
 #define HH_PANNING_USE_VELOCITY             YES
@@ -125,7 +125,11 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 - (void)prepareForReuse
 {
 	[super prepareForReuse];
-	
+
+	self.directionMask = 0;
+	self.shouldBounce = YES;
+    self.delegate = nil;
+    
 	[self setDrawerRevealed:NO animated:NO];
 }
 
@@ -171,8 +175,8 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 
 - (void)dealloc
 {
-	[self removeObserver:self forKeyPath:@"drawerRevealed"];
-	[self removeObserver:self forKeyPath:@"containerView.frame"];
+	[self removeObserver:self forKeyPath:@"drawerRevealed" context:(__bridge void *)kDrawerRevealedContext];
+	[self removeObserver:self forKeyPath:@"containerView.frame" context:(__bridge void *)kContainerFrameContext];
 }
 
 
@@ -366,7 +370,23 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch
 {
 	BOOL shouldReceiveTouch = (! self.animationInProgress) && (! self.editing) && (self.drawerView != nil);
-	
+
+    if (shouldReceiveTouch) {
+        UITableView* tableView = (id)[self superview];
+
+        if ([tableView isKindOfClass:[UITableView class]]) {
+            shouldReceiveTouch = ! (tableView.isDragging || tableView.isDecelerating);
+        }
+    }
+
+    if (shouldReceiveTouch) {
+        id<HHPanningTableViewCellDelegate> delegate = self.delegate;
+
+        if ([delegate respondsToSelector:@selector(panningTableViewCell:shouldReceivePanningTouch:)]) {
+            shouldReceiveTouch  = [delegate panningTableViewCell:self shouldReceivePanningTouch:touch];
+        }
+    }
+    
     return shouldReceiveTouch;
 }
 
@@ -445,7 +465,8 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		HHPanningTableViewCellDirection panDirection = (totalPanX > 0.0f) ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
 		HHPanningTableViewCellDirection normalizedPanDirection = drawerRevealed ? HHOppositeDirection(panDirection) : panDirection;
 		NSInteger directionMask = self.directionMask;
-        BOOL isDelegateTrigger = [self.delegate respondsToSelector:@selector(panningTableViewCellDidTrigger:inDirection:)];
+        id<HHPanningTableViewCellDelegate> delegate = self.delegate;
+        BOOL isDelegateTrigger = [delegate respondsToSelector:@selector(panningTableViewCell:didTriggerWithDirection:)];
 
 		if (drawerRevealed) {
 			directionMask = isOffsetRight ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
@@ -475,7 +496,8 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		
         if (isDelegateTrigger && (drawerRevealed != drawerWasRevealed)) {
             [self setDrawerRevealed:NO direction:direction animated:YES];
-            [self.delegate panningTableViewCellDidTrigger:self inDirection:panDirection];
+            
+            [delegate panningTableViewCell:self didTriggerWithDirection:panDirection];
         }
         else {
             [self setDrawerRevealed:drawerRevealed direction:direction animated:YES];

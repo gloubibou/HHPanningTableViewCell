@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, Pierre Bernard & Houdah Software s.à r.l.
+ * Copyright (c) 2012-2013, Pierre Bernard & Houdah Software s.à r.l.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,21 +28,15 @@
 
 #import <UIKit/UIKit.h>
 
+
 @class HHPanningTableViewCell;
+@protocol HHPanningTableViewCellDelegate;
 
 
 typedef enum {
 	HHPanningTableViewCellDirectionRight = UISwipeGestureRecognizerDirectionRight,
 	HHPanningTableViewCellDirectionLeft = UISwipeGestureRecognizerDirectionLeft,
 } HHPanningTableViewCellDirection;
-
-@protocol HHPanningTableViewCellDelegate <NSObject>
-@optional
-
-//If implemented this this will be triggered instead of fully revealing
-- (void)panningTableViewCellDidTrigger:(HHPanningTableViewCell *)cell inDirection:(HHPanningTableViewCellDirection)direction;
-
-@end
 
 
 @interface HHPanningTableViewCell : UITableViewCell
@@ -54,9 +48,21 @@ typedef enum {
 
 @property (nonatomic, assign)				NSInteger							directionMask;
 @property (nonatomic, assign)				BOOL								shouldBounce;
-@property (nonatomic, strong)               id<HHPanningTableViewCellDelegate>  delegate;
+@property (nonatomic, weak)                 id<HHPanningTableViewCellDelegate>  delegate;
 
 - (BOOL)isDrawerRevealed;
 - (void)setDrawerRevealed:(BOOL)revealed animated:(BOOL)animated;
+
+@end
+
+
+@protocol HHPanningTableViewCellDelegate <NSObject>
+
+@optional
+
+- (BOOL)panningTableViewCell:(HHPanningTableViewCell *)cell shouldReceivePanningTouch:(UITouch*)touch;
+
+// If implemented this this will be triggered instead of fully revealing
+- (void)panningTableViewCell:(HHPanningTableViewCell *)cell didTriggerWithDirection:(HHPanningTableViewCellDirection)direction;
 
 @end
