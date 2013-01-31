@@ -126,11 +126,12 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 {
 	[super prepareForReuse];
 
-	self.directionMask = 0;
-	self.shouldBounce = YES;
     self.delegate = nil;
     
 	[self setDrawerRevealed:NO animated:NO];
+
+    self.directionMask = 0;
+	self.shouldBounce = YES;
 }
 
 - (UIView*)createContainerView
@@ -265,22 +266,22 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 	if ([self isEditing] || (self.drawerView == nil)) {
 		return;
 	}
-	
+
 	self.drawerRevealed = revealed;
-	
+
 	UIView *drawerView = self.drawerView;
 	UIView *shadowView = self.shadowView;
 	UIView *containerView = self.containerView;
 	CGRect frame = [containerView frame];
-	
+
 	UIView *cellView = self;
 	CGRect bounds = [cellView bounds];
 	CGFloat duration = animated ? HH_PANNING_ANIMATION_DURATION : 0.0f;
-	
+
 	[cellView addSubview:drawerView];
 	[cellView addSubview:shadowView];
 	[cellView addSubview:containerView];
-	
+
 	if (revealed) {
 		if (direction == HHPanningTableViewCellDirectionRight) {
 			frame.origin.x = bounds.origin.x + bounds.size.width;
@@ -288,78 +289,87 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		else {
 			frame.origin.x = bounds.origin.x - bounds.size.width;
 		}
-		
+
 		self.animationInProgress = YES;
-		
-		[UIView animateWithDuration:duration
-							  delay:0.0f
-							options:UIViewAnimationOptionCurveEaseOut
-						 animations:^{
-							 [containerView setFrame:frame];
-						 } completion:^(BOOL finished) {
-							 [containerView removeFromSuperview];
-							 
-							 self.animationInProgress = NO;
-						 }];
+
+        void (^animations)(void) = ^ {
+            [containerView setFrame:frame];
+        };
+
+        void (^completion)(BOOL finished) = ^(BOOL finished) {
+            [containerView removeFromSuperview];
+
+            self.animationInProgress = NO;
+        };
+
+        if (animated) {
+            [UIView animateWithDuration:HH_PANNING_ANIMATION_DURATION
+                                  delay:0.0f
+                                options:UIViewAnimationOptionCurveEaseOut
+                             animations:animations
+                             completion:completion];
+        }
+        else {
+            animations();
+            completion(YES);
+        }
 	}
 	else {
 		frame.origin.x = 0.0;
-		
-		BOOL shouldBounce = self.shouldBounce;
-		
-		if (shouldBounce) {
-			CGFloat bounceDuration = duration;
-			CGFloat offsetX = containerView.frame.origin.x;
-			CGFloat bounceMultiplier = fminf(fabsf(offsetX / HH_PANNING_TRIGGER_OFFSET), 1.0f);
-			CGFloat bounceDistance = bounceMultiplier * HH_PANNING_BOUNCE_DISTANCE;
-			
-			if (offsetX < 0.0f) {
-				bounceDistance *= -1.0;
-			}
-			
-			self.animationInProgress = YES;
-			
-			[UIView animateWithDuration:duration
-								  delay:0.0f
-								options:UIViewAnimationOptionCurveEaseOut
-							 animations:^{
-								 [containerView setFrame:frame];
-							 } completion:^(BOOL finished) {
-								 [UIView animateWithDuration:bounceDuration
-													   delay:0.0f
-													 options:UIViewAnimationCurveLinear
-												  animations:^{
-													  [containerView setFrame:CGRectOffset(frame, bounceDistance, 0.0f)];
-												  } completion:^(BOOL finished) {
-													  [UIView animateWithDuration:bounceDuration
-																			delay:0.0f
-																		  options:UIViewAnimationCurveLinear
-																	   animations:^{
-																		   [containerView setFrame:frame];
-																	   } completion:^(BOOL finished) {
-																		   [drawerView removeFromSuperview];
-																		   [shadowView removeFromSuperview];
-																		   
-																		   self.animationInProgress = NO;
-																	   }];
-												  }];
-							 }];
-		}
-		else {
-			self.animationInProgress = YES;
-			
-			[UIView animateWithDuration:duration
-								  delay:0.0f
-								options:UIViewAnimationOptionCurveEaseOut
-							 animations:^{
-								 [containerView setFrame:frame];
-							 } completion:^(BOOL finished) {
-								 [drawerView removeFromSuperview];
-								 [shadowView removeFromSuperview];
 
-								 self.animationInProgress = NO;
-							 }];
-		}
+        void (^animations)(void) = ^ {
+            [containerView setFrame:frame];
+        };
+
+        void (^completion)(BOOL finished) = ^(BOOL finished) {
+            [drawerView removeFromSuperview];
+            [shadowView removeFromSuperview];
+
+            self.animationInProgress = NO;
+        };
+
+        self.animationInProgress = YES;
+
+        if (animated) {
+            BOOL shouldBounce = self.shouldBounce;
+
+            if (shouldBounce) {
+                CGFloat bounceDuration = duration;
+                CGFloat offsetX = containerView.frame.origin.x;
+                CGFloat bounceMultiplier = fminf(fabsf(offsetX / HH_PANNING_TRIGGER_OFFSET), 1.0f);
+                CGFloat bounceDistance = bounceMultiplier * HH_PANNING_BOUNCE_DISTANCE;
+
+                if (offsetX < 0.0f) {
+                    bounceDistance *= -1.0;
+                }
+
+                [UIView animateWithDuration:duration
+                                      delay:0.0f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:animations
+                                 completion:^(BOOL finished) {
+                                     [UIView animateWithDuration:bounceDuration
+                                                           delay:0.0f
+                                                         options:UIViewAnimationCurveLinear
+                                                      animations:^{
+                                                          [containerView setFrame:CGRectOffset(frame, bounceDistance, 0.0f)];
+                                                      } completion:^(BOOL finished) {
+                                                          [UIView animateWithDuration:bounceDuration
+                                                                                delay:0.0f
+                                                                              options:UIViewAnimationCurveLinear
+                                                                           animations:animations
+                                                                           completion:completion];
+                                                      }];
+                                 }];
+            }
+            else {
+                [UIView animateWithDuration:duration
+                                      delay:0.0f
+                                    options:UIViewAnimationOptionCurveEaseOut
+                                 animations:animations
+                                 completion:completion];
+            }
+        }
 	}
 }
 

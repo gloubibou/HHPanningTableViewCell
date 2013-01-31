@@ -92,14 +92,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.rowTitles count];
+    return [self.rowTitles count] * 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     HHPanningTableViewCell *cell = (HHPanningTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+    NSInteger directionMask = indexPath.row % 5;
+
 	if (cell == nil) {
 		cell = [[HHPanningTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
 											  reuseIdentifier:CellIdentifier];
@@ -110,18 +111,21 @@
         // Made by Tsvetelin Nikolov http://dribbble.com/bscsystem
 		drawerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dark_dotted"]];
 		
-		cell.drawerView = drawerView;
-        if (indexPath.row < 4) {
-            cell.directionMask = indexPath.row;
-        }
-        else {
-            cell.directionMask = HHPanningTableViewCellDirectionLeft + HHPanningTableViewCellDirectionRight;
+		cell.drawerView = drawerView;		
+	}
+
+    if (directionMask < 3) {
+        cell.directionMask = directionMask;
+    }
+    else {
+        cell.directionMask = HHPanningTableViewCellDirectionLeft + HHPanningTableViewCellDirectionRight;
+
+        if (directionMask == 4) {
             cell.delegate = self;
         }
-		
-	}
-    
-	cell.textLabel.text = [self.rowTitles objectAtIndex:indexPath.row];
+    }
+
+	cell.textLabel.text = [self.rowTitles objectAtIndex:directionMask];
 
     return cell;
 }
