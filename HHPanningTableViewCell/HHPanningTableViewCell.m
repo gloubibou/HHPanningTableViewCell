@@ -85,6 +85,9 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 	if (self != nil) {
 		[self panningTableViewCellInit];
 	}
+    
+    // Note, minimum pan distance can be overridden
+    self.minimumPan = HH_PANNING_MINIMUM_PAN;
 	
     return self;
 }
@@ -437,7 +440,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 		CGFloat totalPanX = translation.x;
 		
 		if (!self.panning) {
-			if (fabsf(totalPanX) <= HH_PANNING_MINIMUM_PAN) {
+			if (fabsf(totalPanX) <= self.minimumPan) {
 				totalPanX = 0.0f;
 			}
 			else {
