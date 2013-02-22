@@ -33,6 +33,8 @@
 
 @interface HHInnerShadowView ()
 
+@property (nonatomic, strong) CAShapeLayer *shadowLayer;
+
 @end
 
 
@@ -41,9 +43,11 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+
     if (self) {
-        // Initialization code
+        [self setClipsToBounds:YES];
     }
+
     return self;
 }
 
@@ -53,50 +57,64 @@
 
 
 #pragma mark -
-#pragma mark Drawing
+#pragma mark Instance methods
 
-- (void)drawRect:(CGRect)rect
+- (void)layoutSublayersOfLayer:(CALayer *)layer
 {
-	// http://stackoverflow.com/questions/4431292/inner-shadow-effect-on-uiview-layer
-	
-	CGRect bounds = [self bounds];
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	
-	// Create the shape of the shadow
-	CGMutablePathRef visiblePath = CGPathCreateMutable();
-	CGPathAddRect(visiblePath, NULL, bounds);
-	
-	[[UIColor clearColor] setFill];
-	
-	CGContextAddPath(context, visiblePath);
-	CGContextFillPath(context);
-	
-	// Now create a larger rectangle, which we're going to subtract the visible path from and apply a shadow
-	CGMutablePathRef path = CGPathCreateMutable();
-	CGPathAddRect(path, NULL, CGRectInset(bounds, -10.0, -10.0));
-	
-	// Add the visible path (so that it gets subtracted for the shadow)
-	CGPathAddPath(path, NULL, visiblePath);
-	CGPathCloseSubpath(path);
-	
-	// Add the visible paths as the clipping path to the context
-	CGContextAddPath(context, visiblePath);
-	CGContextClip(context);
-	
-	// Now setup the shadow properties on the context
-	CGContextSaveGState(context);
-	CGContextSetShadowWithColor(context, CGSizeMake(0.0f, 1.0f), 10.0f, [[UIColor blackColor] CGColor]);
-	
-	// Now fill the rectangle, so the shadow gets drawn
-	[[UIColor blackColor] setFill];
-	
-	CGContextSaveGState(context);
-	CGContextAddPath(context, path);
-	CGContextEOFillPath(context);
-	
-	// Release the paths
-	CGPathRelease(path);
-	CGPathRelease(visiblePath);
+    [self layoutShadowLayer];
+    
+    [super layoutSublayersOfLayer:layer];
+}
+
+
+- (void)layoutShadowLayer
+{
+    CGRect bounds = [self bounds];
+    CAShapeLayer *shadowLayer = self.shadowLayer;
+
+    if (! CGRectEqualToRect(bounds, [shadowLayer frame])) {
+        [shadowLayer removeFromSuperlayer];
+
+        // http://stackoverflow.com/questions/4431292/inner-shadow-effect-on-uiview-layer/11436615#11436615
+        // Answered by Matt Wilding
+
+        shadowLayer = [CAShapeLayer layer];
+
+        [shadowLayer setFrame:bounds];
+
+        // Standard shadow stuff
+        [shadowLayer setShadowColor:[[UIColor blackColor] CGColor]];
+        [shadowLayer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
+        [shadowLayer setShadowOpacity:1.0f];
+        [shadowLayer setShadowRadius:10.0f];
+
+        // Causes the inner region in to NOT be filled.
+        [shadowLayer setFillRule:kCAFillRuleEvenOdd];
+
+        // Create the larger rectangle path.
+        CGMutablePathRef path = CGPathCreateMutable();
+
+        CGPathAddRect(path, NULL, CGRectInset(bounds, -10.0f, -10.0f));
+
+        // Add the inner path so it's subtracted from the outer path.
+        // someInnerPath could be a simple bounds rect, or maybe
+        // a rounded one for some extra fanciness.
+
+        CGPathRef innerPath = [[UIBezierPath bezierPathWithRect:[shadowLayer bounds]] CGPath];
+
+        CGPathAddPath(path, NULL, innerPath);
+        CGPathCloseSubpath(path);
+
+        [shadowLayer setPath:path];
+
+        CGPathRelease(path);
+
+        [shadowLayer setShouldRasterize:YES];
+        
+        [[self layer] insertSublayer:shadowLayer atIndex:0];
+
+        self.shadowLayer = shadowLayer;
+    }
 }
 
 @end
