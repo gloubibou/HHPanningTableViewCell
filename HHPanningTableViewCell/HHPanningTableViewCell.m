@@ -381,6 +381,10 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
                                  completion:completion];
             }
         }
+        else {
+            animations();
+            completion(YES);
+        }
 	}
 }
 
@@ -623,14 +627,14 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 	CGRect shadowFrame = containerFrame;
 
 	shadowFrame.size.width *= 2.0;
-
+    
 	if (containerFrame.origin.x < cellBounds.origin.x) {
         shadowFrame.origin.x = containerFrame.origin.x + containerFrame.size.width;
 	}
 	else {
         shadowFrame.origin.x = containerFrame.origin.x - shadowFrame.size.width;
 	}
-
+    
 	[shadowView setFrame:shadowFrame];
 }
 
