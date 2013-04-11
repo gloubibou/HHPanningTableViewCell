@@ -174,7 +174,6 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 																										  action:@selector(gestureRecognizerDidPan:)];
 
 	gestureRecognizer.direction = HHDirectionPanGestureRecognizerHorizontal;
-	gestureRecognizer.delegate = self;
 
 	return gestureRecognizer;
 }
