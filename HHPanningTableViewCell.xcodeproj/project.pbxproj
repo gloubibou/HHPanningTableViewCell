@@ -13,8 +13,6 @@
 		8F150F5A15B1586B00EE1B9C /* HHPanningTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F150F5915B1586A00EE1B9C /* HHPanningTableViewCell.m */; };
 		8F3F12BB15B56854002B8762 /* HHInnerShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F12BA15B56854002B8762 /* HHInnerShadowView.m */; };
 		8F6D1C1D15B3392900706C97 /* HHDirectionPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D1C1C15B3392900706C97 /* HHDirectionPanGestureRecognizer.m */; };
-		8F92F43F162C5F3B0066B3F8 /* dark_dotted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F92F43D162C5F3B0066B3F8 /* dark_dotted.png */; };
-		8F92F440162C5F3B0066B3F8 /* dark_dotted@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F92F43E162C5F3B0066B3F8 /* dark_dotted@2X.png */; };
 		8FC0367C15B4477900EE4AFA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC0367B15B4477900EE4AFA /* QuartzCore.framework */; };
 		8FE57C0B173FCF5000718EFE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C07173FCF5000718EFE /* AppDelegate.m */; };
 		8FE57C0C173FCF5000718EFE /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C09173FCF5000718EFE /* TableViewController.m */; };
@@ -22,6 +20,8 @@
 		8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C0E173FCF6000718EFE /* InfoPlist.strings */; };
 		8FE57C15173FCF6000718EFE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C12173FCF6000718EFE /* main.m */; };
 		8FE57C2E1740123000718EFE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C2D1740123000718EFE /* Default-568h@2x.png */; };
+		8FE57C31174012CD00718EFE /* dark_dotted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C2F174012CD00718EFE /* dark_dotted.png */; };
+		8FE57C32174012CD00718EFE /* dark_dotted@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C30174012CD00718EFE /* dark_dotted@2X.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +35,6 @@
 		8F3F12BA15B56854002B8762 /* HHInnerShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHInnerShadowView.m; sourceTree = "<group>"; };
 		8F6D1C1B15B3392900706C97 /* HHDirectionPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHDirectionPanGestureRecognizer.h; sourceTree = "<group>"; };
 		8F6D1C1C15B3392900706C97 /* HHDirectionPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHDirectionPanGestureRecognizer.m; sourceTree = "<group>"; };
-		8F92F43D162C5F3B0066B3F8 /* dark_dotted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_dotted.png; sourceTree = "<group>"; };
-		8F92F43E162C5F3B0066B3F8 /* dark_dotted@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark_dotted@2X.png"; sourceTree = "<group>"; };
 		8FC0367B15B4477900EE4AFA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8FE57C06173FCF5000718EFE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Demo App/AppDelegate.h"; sourceTree = "<group>"; };
 		8FE57C07173FCF5000718EFE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Demo App/AppDelegate.m"; sourceTree = "<group>"; };
@@ -48,6 +46,8 @@
 		8FE57C11173FCF6000718EFE /* HHPanningTableViewCell-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HHPanningTableViewCell-Prefix.pch"; path = "Demo App/HHPanningTableViewCell-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		8FE57C12173FCF6000718EFE /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Demo App/main.m"; sourceTree = SOURCE_ROOT; };
 		8FE57C2D1740123000718EFE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Demo App/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		8FE57C2F174012CD00718EFE /* dark_dotted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dark_dotted.png; path = "../Demo App/dark_dotted.png"; sourceTree = "<group>"; };
+		8FE57C30174012CD00718EFE /* dark_dotted@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dark_dotted@2X.png"; path = "../Demo App/dark_dotted@2X.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,6 @@
 			children = (
 				8FC0367915B438BD00EE4AFA /* Demo App */,
 				8F150F3C15B1559D00EE1B9C /* HHPanningTableViewCell */,
-				8FC0367A15B438D100EE4AFA /* Images */,
 				8F150F3515B1559D00EE1B9C /* Frameworks */,
 				8F150F3315B1559D00EE1B9C /* Products */,
 			);
@@ -126,6 +125,7 @@
 			children = (
 				8FE57C06173FCF5000718EFE /* AppDelegate.h */,
 				8FE57C07173FCF5000718EFE /* AppDelegate.m */,
+				8FC0367A15B438D100EE4AFA /* Images */,
 				8F150F3D15B1559D00EE1B9C /* Supporting Files */,
 				8FE57C08173FCF5000718EFE /* TableViewController.h */,
 				8FE57C09173FCF5000718EFE /* TableViewController.m */,
@@ -137,8 +137,8 @@
 		8FC0367A15B438D100EE4AFA /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				8F92F43D162C5F3B0066B3F8 /* dark_dotted.png */,
-				8F92F43E162C5F3B0066B3F8 /* dark_dotted@2X.png */,
+				8FE57C2F174012CD00718EFE /* dark_dotted.png */,
+				8FE57C30174012CD00718EFE /* dark_dotted@2X.png */,
 			);
 			name = Images;
 			path = HHPanningTableViewCell;
@@ -196,11 +196,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F92F43F162C5F3B0066B3F8 /* dark_dotted.png in Resources */,
-				8F92F440162C5F3B0066B3F8 /* dark_dotted@2X.png in Resources */,
 				8FE57C0D173FCF5000718EFE /* TableViewController.xib in Resources */,
 				8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */,
 				8FE57C2E1740123000718EFE /* Default-568h@2x.png in Resources */,
+				8FE57C31174012CD00718EFE /* dark_dotted.png in Resources */,
+				8FE57C32174012CD00718EFE /* dark_dotted@2X.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
