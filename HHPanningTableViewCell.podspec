@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HHPanningTableViewCell"
-  s.version      = "0.0.1"
+  s.version      = "0.0.3"
   s.summary      = "HHPanningTableViewCell - Swipe to reveal."
   s.description  = <<-DESC
                    HHPanningTableViewCell is a UITableViewCell implementing "swipe to reveal" a drawer view. Such a view typically holds action buttons applying to the current row.
@@ -14,7 +14,7 @@ The code presented here is identical to the one used in the shipped product.
   s.license      = {
     :type => 'BSD',
     :text => <<-LICENSE
- Copyright (c) 2012, Pierre Bernard & Houdah Software s.à r.l.
+ Copyright (c) 2012-2013, Pierre Bernard & Houdah Software s.à r.l.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without

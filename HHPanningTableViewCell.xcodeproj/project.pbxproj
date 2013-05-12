@@ -10,17 +10,18 @@
 		8F150F3715B1559D00EE1B9C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F150F3615B1559D00EE1B9C /* UIKit.framework */; };
 		8F150F3915B1559D00EE1B9C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F150F3815B1559D00EE1B9C /* Foundation.framework */; };
 		8F150F3B15B1559D00EE1B9C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F150F3A15B1559D00EE1B9C /* CoreGraphics.framework */; };
-		8F150F4115B1559D00EE1B9C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F150F3F15B1559D00EE1B9C /* InfoPlist.strings */; };
-		8F150F4315B1559D00EE1B9C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F150F4215B1559D00EE1B9C /* main.m */; };
-		8F150F4715B1559D00EE1B9C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F150F4615B1559D00EE1B9C /* AppDelegate.m */; };
-		8F150F5615B155D300EE1B9C /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F150F5415B155D300EE1B9C /* TableViewController.m */; };
-		8F150F5715B155D300EE1B9C /* TableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F150F5515B155D300EE1B9C /* TableViewController.xib */; };
 		8F150F5A15B1586B00EE1B9C /* HHPanningTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F150F5915B1586A00EE1B9C /* HHPanningTableViewCell.m */; };
 		8F3F12BB15B56854002B8762 /* HHInnerShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3F12BA15B56854002B8762 /* HHInnerShadowView.m */; };
 		8F6D1C1D15B3392900706C97 /* HHDirectionPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D1C1C15B3392900706C97 /* HHDirectionPanGestureRecognizer.m */; };
 		8F92F43F162C5F3B0066B3F8 /* dark_dotted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F92F43D162C5F3B0066B3F8 /* dark_dotted.png */; };
 		8F92F440162C5F3B0066B3F8 /* dark_dotted@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F92F43E162C5F3B0066B3F8 /* dark_dotted@2X.png */; };
 		8FC0367C15B4477900EE4AFA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC0367B15B4477900EE4AFA /* QuartzCore.framework */; };
+		8FE57C0B173FCF5000718EFE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C07173FCF5000718EFE /* AppDelegate.m */; };
+		8FE57C0C173FCF5000718EFE /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C09173FCF5000718EFE /* TableViewController.m */; };
+		8FE57C0D173FCF5000718EFE /* TableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C0A173FCF5000718EFE /* TableViewController.xib */; };
+		8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C0E173FCF6000718EFE /* InfoPlist.strings */; };
+		8FE57C15173FCF6000718EFE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C12173FCF6000718EFE /* main.m */; };
+		8FE57C17173FD0C800718EFE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C16173FD0C800718EFE /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,15 +29,6 @@
 		8F150F3615B1559D00EE1B9C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8F150F3815B1559D00EE1B9C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8F150F3A15B1559D00EE1B9C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		8F150F3E15B1559D00EE1B9C /* HHPanningTableViewCell-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HHPanningTableViewCell-Info.plist"; sourceTree = "<group>"; };
-		8F150F4015B1559D00EE1B9C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8F150F4215B1559D00EE1B9C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8F150F4415B1559D00EE1B9C /* HHPanningTableViewCell-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HHPanningTableViewCell-Prefix.pch"; sourceTree = "<group>"; };
-		8F150F4515B1559D00EE1B9C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HHPanningTableViewCell/AppDelegate.h; sourceTree = "<group>"; };
-		8F150F4615B1559D00EE1B9C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HHPanningTableViewCell/AppDelegate.m; sourceTree = "<group>"; };
-		8F150F5315B155D300EE1B9C /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = HHPanningTableViewCell/TableViewController.h; sourceTree = "<group>"; };
-		8F150F5415B155D300EE1B9C /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewController.m; path = HHPanningTableViewCell/TableViewController.m; sourceTree = "<group>"; };
-		8F150F5515B155D300EE1B9C /* TableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableViewController.xib; path = HHPanningTableViewCell/TableViewController.xib; sourceTree = "<group>"; };
 		8F150F5815B1586A00EE1B9C /* HHPanningTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHPanningTableViewCell.h; sourceTree = "<group>"; };
 		8F150F5915B1586A00EE1B9C /* HHPanningTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHPanningTableViewCell.m; sourceTree = "<group>"; };
 		8F3F12B915B56854002B8762 /* HHInnerShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHInnerShadowView.h; sourceTree = "<group>"; };
@@ -46,6 +38,16 @@
 		8F92F43D162C5F3B0066B3F8 /* dark_dotted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_dotted.png; sourceTree = "<group>"; };
 		8F92F43E162C5F3B0066B3F8 /* dark_dotted@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark_dotted@2X.png"; sourceTree = "<group>"; };
 		8FC0367B15B4477900EE4AFA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8FE57C06173FCF5000718EFE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Demo App/AppDelegate.h"; sourceTree = "<group>"; };
+		8FE57C07173FCF5000718EFE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Demo App/AppDelegate.m"; sourceTree = "<group>"; };
+		8FE57C08173FCF5000718EFE /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = "Demo App/TableViewController.h"; sourceTree = "<group>"; };
+		8FE57C09173FCF5000718EFE /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewController.m; path = "Demo App/TableViewController.m"; sourceTree = "<group>"; };
+		8FE57C0A173FCF5000718EFE /* TableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableViewController.xib; path = "Demo App/TableViewController.xib"; sourceTree = "<group>"; };
+		8FE57C0F173FCF6000718EFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "Demo App/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
+		8FE57C10173FCF6000718EFE /* HHPanningTableViewCell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "HHPanningTableViewCell-Info.plist"; path = "Demo App/HHPanningTableViewCell-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8FE57C11173FCF6000718EFE /* HHPanningTableViewCell-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HHPanningTableViewCell-Prefix.pch"; path = "Demo App/HHPanningTableViewCell-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		8FE57C12173FCF6000718EFE /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Demo App/main.m"; sourceTree = SOURCE_ROOT; };
+		8FE57C16173FD0C800718EFE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +68,7 @@
 		8F150F2715B1559D00EE1B9C = {
 			isa = PBXGroup;
 			children = (
-				8FC0367915B438BD00EE4AFA /* Demo */,
+				8FC0367915B438BD00EE4AFA /* Demo App */,
 				8F150F3C15B1559D00EE1B9C /* HHPanningTableViewCell */,
 				8FC0367A15B438D100EE4AFA /* Images */,
 				8F150F3515B1559D00EE1B9C /* Frameworks */,
@@ -85,10 +87,10 @@
 		8F150F3515B1559D00EE1B9C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F150F3A15B1559D00EE1B9C /* CoreGraphics.framework */,
+				8F150F3815B1559D00EE1B9C /* Foundation.framework */,
 				8FC0367B15B4477900EE4AFA /* QuartzCore.framework */,
 				8F150F3615B1559D00EE1B9C /* UIKit.framework */,
-				8F150F3815B1559D00EE1B9C /* Foundation.framework */,
-				8F150F3A15B1559D00EE1B9C /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -109,26 +111,27 @@
 		8F150F3D15B1559D00EE1B9C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8F150F3E15B1559D00EE1B9C /* HHPanningTableViewCell-Info.plist */,
-				8F150F3F15B1559D00EE1B9C /* InfoPlist.strings */,
-				8F150F4215B1559D00EE1B9C /* main.m */,
-				8F150F4415B1559D00EE1B9C /* HHPanningTableViewCell-Prefix.pch */,
+				8FE57C16173FD0C800718EFE /* Default-568h@2x.png */,
+				8FE57C10173FCF6000718EFE /* HHPanningTableViewCell-Info.plist */,
+				8FE57C11173FCF6000718EFE /* HHPanningTableViewCell-Prefix.pch */,
+				8FE57C0E173FCF6000718EFE /* InfoPlist.strings */,
+				8FE57C12173FCF6000718EFE /* main.m */,
 			);
 			name = "Supporting Files";
 			path = HHPanningTableViewCell;
 			sourceTree = "<group>";
 		};
-		8FC0367915B438BD00EE4AFA /* Demo */ = {
+		8FC0367915B438BD00EE4AFA /* Demo App */ = {
 			isa = PBXGroup;
 			children = (
-				8F150F4515B1559D00EE1B9C /* AppDelegate.h */,
-				8F150F4615B1559D00EE1B9C /* AppDelegate.m */,
+				8FE57C06173FCF5000718EFE /* AppDelegate.h */,
+				8FE57C07173FCF5000718EFE /* AppDelegate.m */,
 				8F150F3D15B1559D00EE1B9C /* Supporting Files */,
-				8F150F5315B155D300EE1B9C /* TableViewController.h */,
-				8F150F5415B155D300EE1B9C /* TableViewController.m */,
-				8F150F5515B155D300EE1B9C /* TableViewController.xib */,
+				8FE57C08173FCF5000718EFE /* TableViewController.h */,
+				8FE57C09173FCF5000718EFE /* TableViewController.m */,
+				8FE57C0A173FCF5000718EFE /* TableViewController.xib */,
 			);
-			name = Demo;
+			name = "Demo App";
 			sourceTree = "<group>";
 		};
 		8FC0367A15B438D100EE4AFA /* Images */ = {
@@ -193,10 +196,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F150F4115B1559D00EE1B9C /* InfoPlist.strings in Resources */,
-				8F150F5715B155D300EE1B9C /* TableViewController.xib in Resources */,
 				8F92F43F162C5F3B0066B3F8 /* dark_dotted.png in Resources */,
 				8F92F440162C5F3B0066B3F8 /* dark_dotted@2X.png in Resources */,
+				8FE57C0D173FCF5000718EFE /* TableViewController.xib in Resources */,
+				8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */,
+				8FE57C17173FD0C800718EFE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,22 +211,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F150F4315B1559D00EE1B9C /* main.m in Sources */,
-				8F150F4715B1559D00EE1B9C /* AppDelegate.m in Sources */,
-				8F150F5615B155D300EE1B9C /* TableViewController.m in Sources */,
 				8F150F5A15B1586B00EE1B9C /* HHPanningTableViewCell.m in Sources */,
 				8F6D1C1D15B3392900706C97 /* HHDirectionPanGestureRecognizer.m in Sources */,
 				8F3F12BB15B56854002B8762 /* HHInnerShadowView.m in Sources */,
+				8FE57C0B173FCF5000718EFE /* AppDelegate.m in Sources */,
+				8FE57C0C173FCF5000718EFE /* TableViewController.m in Sources */,
+				8FE57C15173FCF6000718EFE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8F150F3F15B1559D00EE1B9C /* InfoPlist.strings */ = {
+		8FE57C0E173FCF6000718EFE /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8F150F4015B1559D00EE1B9C /* en */,
+				8FE57C0F173FCF6000718EFE /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -283,8 +287,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HHPanningTableViewCell/HHPanningTableViewCell-Prefix.pch";
-				INFOPLIST_FILE = "HHPanningTableViewCell/HHPanningTableViewCell-Info.plist";
+				GCC_PREFIX_HEADER = "Demo App/HHPanningTableViewCell-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo App/HHPanningTableViewCell-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -294,8 +298,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HHPanningTableViewCell/HHPanningTableViewCell-Prefix.pch";
-				INFOPLIST_FILE = "HHPanningTableViewCell/HHPanningTableViewCell-Info.plist";
+				GCC_PREFIX_HEADER = "Demo App/HHPanningTableViewCell-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo App/HHPanningTableViewCell-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

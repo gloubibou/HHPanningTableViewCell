@@ -38,4 +38,3 @@ The code presented here is identical to the one used in the shipped product.
 ## License
 
 This code is made available under the terms of the BSD license as included in the source files.
-Go fork and prosper!
