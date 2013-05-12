@@ -21,7 +21,7 @@
 		8FE57C0D173FCF5000718EFE /* TableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C0A173FCF5000718EFE /* TableViewController.xib */; };
 		8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C0E173FCF6000718EFE /* InfoPlist.strings */; };
 		8FE57C15173FCF6000718EFE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C12173FCF6000718EFE /* main.m */; };
-		8FE57C17173FD0C800718EFE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C16173FD0C800718EFE /* Default-568h@2x.png */; };
+		8FE57C2E1740123000718EFE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C2D1740123000718EFE /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +47,7 @@
 		8FE57C10173FCF6000718EFE /* HHPanningTableViewCell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "HHPanningTableViewCell-Info.plist"; path = "Demo App/HHPanningTableViewCell-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8FE57C11173FCF6000718EFE /* HHPanningTableViewCell-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HHPanningTableViewCell-Prefix.pch"; path = "Demo App/HHPanningTableViewCell-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		8FE57C12173FCF6000718EFE /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Demo App/main.m"; sourceTree = SOURCE_ROOT; };
-		8FE57C16173FD0C800718EFE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8FE57C2D1740123000718EFE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Demo App/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,7 @@
 		8F150F3D15B1559D00EE1B9C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8FE57C16173FD0C800718EFE /* Default-568h@2x.png */,
+				8FE57C2D1740123000718EFE /* Default-568h@2x.png */,
 				8FE57C10173FCF6000718EFE /* HHPanningTableViewCell-Info.plist */,
 				8FE57C11173FCF6000718EFE /* HHPanningTableViewCell-Prefix.pch */,
 				8FE57C0E173FCF6000718EFE /* InfoPlist.strings */,
@@ -171,7 +171,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = HH;
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Pierre Bernard";
 			};
 			buildConfigurationList = 8F150F2C15B1559D00EE1B9C /* Build configuration list for PBXProject "HHPanningTableViewCell" */;
@@ -200,7 +200,7 @@
 				8F92F440162C5F3B0066B3F8 /* dark_dotted@2X.png in Resources */,
 				8FE57C0D173FCF5000718EFE /* TableViewController.xib in Resources */,
 				8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */,
-				8FE57C17173FD0C800718EFE /* Default-568h@2x.png in Resources */,
+				8FE57C2E1740123000718EFE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +241,9 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -268,6 +271,9 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
