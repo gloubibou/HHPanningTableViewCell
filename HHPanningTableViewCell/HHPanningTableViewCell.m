@@ -174,12 +174,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 																										  action:@selector(gestureRecognizerDidPan:)];
 
 	gestureRecognizer.direction = HHDirectionPanGestureRecognizerHorizontal;
-
-	if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_5_1) {
-		// Needed, but breaks gesture recognizer on iOS 5.0
-		// https://github.com/gloubibou/HHPanningTableViewCell/pull/12
-		gestureRecognizer.delegate = self;
-	}
+	gestureRecognizer.delegate = self;
 	
 	return gestureRecognizer;
 }
@@ -396,6 +391,11 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 
 #pragma mark -
 #pragma mark Gesture recognizer
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+	return YES;
+}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch
 {
