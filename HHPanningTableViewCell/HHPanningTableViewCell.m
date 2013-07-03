@@ -636,7 +636,6 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 	if (containerFrame.origin.x < cellBounds.origin.x) {
         shadowFrame.origin.x = containerFrame.origin.x + containerFrame.size.width;
 	}
-	else {
 	else if (containerFrame.origin.x > cellBounds.origin.x) {
         shadowFrame.origin.x = containerFrame.origin.x - shadowFrame.size.width;
 	}
