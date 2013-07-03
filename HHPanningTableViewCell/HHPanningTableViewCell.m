@@ -38,7 +38,8 @@
 #define HH_PANNING_ANIMATION_DURATION		0.1f
 #define HH_PANNING_BOUNCE_DISTANCE			10.0f
 #define HH_PANNING_MINIMUM_PAN				50.0f
-#define HH_PANNING_MAXIMUM_PAN              0.0f //Set to 0.0f for full view width
+#define HH_PANNING_MAXIMUM_PAN              0.0f // Set to 0.0f for full view width
+#define HH_PANNING_REVEAL_DISTANCE          0.0f // Set to 0.0f to hide the cell completely
 #define HH_PANNING_TRIGGER_OFFSET			100.0f
 #define HH_PANNING_USE_VELOCITY             YES
 
@@ -113,6 +114,7 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 
     self.minimumPan = HH_PANNING_MINIMUM_PAN;
     self.maximumPan = HH_PANNING_MAXIMUM_PAN;
+    self.revealDistance = HH_PANNING_REVEAL_DISTANCE;
 
 	[self addObserver:self forKeyPath:@"drawerRevealed" options:0 context:(__bridge void *)kDrawerRevealedContext];
 	[self addObserver:self forKeyPath:@"containerView.frame" options:0 context:(__bridge void *)kContainerFrameContext];
@@ -295,10 +297,14 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
 
 	if (revealed) {
 		if (direction == HHPanningTableViewCellDirectionRight) {
-			frame.origin.x = bounds.origin.x + bounds.size.width;
+			frame.origin.x = self.revealDistance > 0 ?
+                bounds.origin.x + self.revealDistance :
+                bounds.origin.x + bounds.size.width;
 		}
 		else {
-			frame.origin.x = bounds.origin.x - bounds.size.width;
+			frame.origin.x = self.revealDistance > 0 ?
+                bounds.origin.x - self.revealDistance :
+                bounds.origin.x - bounds.size.width;
 		}
 
 		self.animationInProgress = YES;
@@ -308,7 +314,9 @@ static HHPanningTableViewCellDirection HHOppositeDirection(HHPanningTableViewCel
         };
 
         void (^completion)(BOOL finished) = ^(BOOL finished) {
-            [containerView removeFromSuperview];
+            if (self.revealDistance == 0) {
+                [containerView removeFromSuperview];
+            }
 
             self.animationInProgress = NO;
         };
