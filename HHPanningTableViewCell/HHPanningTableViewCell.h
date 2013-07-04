@@ -50,6 +50,7 @@ typedef enum {
 @property (nonatomic, assign)				BOOL								shouldBounce;
 @property (nonatomic, assign)				CGFloat								minimumPan;
 @property (nonatomic, assign)				CGFloat								maximumPan;
+@property (nonatomic, assign)				CGFloat								revealDistance;
 @property (nonatomic, weak)                 id<HHPanningTableViewCellDelegate>  delegate;
 
 - (BOOL)isDrawerRevealed;
