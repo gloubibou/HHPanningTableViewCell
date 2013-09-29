@@ -17,7 +17,7 @@ The code presented here is identical to the one used in the shipped product.
 
 ## Requirements
 
-* iOS 5.1 or later
+* iOS 6.1 or later. Including 7.0 (Tag 1.0.0 did support iOS 5.1)
 * ARC memory management
 
 ## Usage

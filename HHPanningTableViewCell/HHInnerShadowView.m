@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, Pierre Bernard & Houdah Software s.à r.l.
+ * Copyright (c) 2012-2013, Pierre Bernard & Houdah Software s.à r.l.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,7 +69,8 @@
 
 - (void)layoutShadowLayer
 {
-    CGRect bounds = [self bounds];
+	CALayer *layer = self.layer;
+    CGRect bounds = [layer bounds];
     CAShapeLayer *shadowLayer = self.shadowLayer;
 
     if (! CGRectEqualToRect(bounds, [shadowLayer frame])) {
@@ -85,8 +86,8 @@
         // Standard shadow stuff
         [shadowLayer setShadowColor:[[UIColor blackColor] CGColor]];
         [shadowLayer setShadowOffset:CGSizeMake(0.0f, 1.0f)];
-        [shadowLayer setShadowOpacity:1.0f];
-        [shadowLayer setShadowRadius:10.0f];
+        [shadowLayer setShadowOpacity:0.3f];
+        [shadowLayer setShadowRadius:1.0f];
 
         // Causes the inner region in to NOT be filled.
         [shadowLayer setFillRule:kCAFillRuleEvenOdd];
@@ -94,13 +95,15 @@
         // Create the larger rectangle path.
         CGMutablePathRef path = CGPathCreateMutable();
 
-        CGPathAddRect(path, NULL, CGRectInset(bounds, -10.0f, -10.0f));
+		CGRect shadowBounds = [shadowLayer bounds];
+
+        CGPathAddRect(path, NULL, CGRectInset(shadowBounds, -3.0f, -3.0f));
 
         // Add the inner path so it's subtracted from the outer path.
         // someInnerPath could be a simple bounds rect, or maybe
         // a rounded one for some extra fanciness.
 
-        CGPathRef innerPath = [[UIBezierPath bezierPathWithRect:[shadowLayer bounds]] CGPath];
+        CGPathRef innerPath = [[UIBezierPath bezierPathWithRect:shadowBounds] CGPath];
 
         CGPathAddPath(path, NULL, innerPath);
         CGPathCloseSubpath(path);
@@ -111,7 +114,7 @@
 
         [shadowLayer setShouldRasterize:YES];
         
-        [[self layer] insertSublayer:shadowLayer atIndex:0];
+        [layer insertSublayer:shadowLayer atIndex:0];
 
         self.shadowLayer = shadowLayer;
     }

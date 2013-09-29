@@ -20,8 +20,6 @@
 		8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C0E173FCF6000718EFE /* InfoPlist.strings */; };
 		8FE57C15173FCF6000718EFE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE57C12173FCF6000718EFE /* main.m */; };
 		8FE57C2E1740123000718EFE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C2D1740123000718EFE /* Default-568h@2x.png */; };
-		8FE57C31174012CD00718EFE /* dark_dotted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C2F174012CD00718EFE /* dark_dotted.png */; };
-		8FE57C32174012CD00718EFE /* dark_dotted@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE57C30174012CD00718EFE /* dark_dotted@2X.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +44,6 @@
 		8FE57C11173FCF6000718EFE /* HHPanningTableViewCell-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HHPanningTableViewCell-Prefix.pch"; path = "Demo App/HHPanningTableViewCell-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		8FE57C12173FCF6000718EFE /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Demo App/main.m"; sourceTree = SOURCE_ROOT; };
 		8FE57C2D1740123000718EFE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Demo App/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
-		8FE57C2F174012CD00718EFE /* dark_dotted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dark_dotted.png; path = "../Demo App/dark_dotted.png"; sourceTree = "<group>"; };
-		8FE57C30174012CD00718EFE /* dark_dotted@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dark_dotted@2X.png"; path = "../Demo App/dark_dotted@2X.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,23 +121,12 @@
 			children = (
 				8FE57C06173FCF5000718EFE /* AppDelegate.h */,
 				8FE57C07173FCF5000718EFE /* AppDelegate.m */,
-				8FC0367A15B438D100EE4AFA /* Images */,
 				8F150F3D15B1559D00EE1B9C /* Supporting Files */,
 				8FE57C08173FCF5000718EFE /* TableViewController.h */,
 				8FE57C09173FCF5000718EFE /* TableViewController.m */,
 				8FE57C0A173FCF5000718EFE /* TableViewController.xib */,
 			);
 			name = "Demo App";
-			sourceTree = "<group>";
-		};
-		8FC0367A15B438D100EE4AFA /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				8FE57C2F174012CD00718EFE /* dark_dotted.png */,
-				8FE57C30174012CD00718EFE /* dark_dotted@2X.png */,
-			);
-			name = Images;
-			path = HHPanningTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,7 +156,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = HH;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Pierre Bernard";
 			};
 			buildConfigurationList = 8F150F2C15B1559D00EE1B9C /* Build configuration list for PBXProject "HHPanningTableViewCell" */;
@@ -199,8 +184,6 @@
 				8FE57C0D173FCF5000718EFE /* TableViewController.xib in Resources */,
 				8FE57C13173FCF6000718EFE /* InfoPlist.strings in Resources */,
 				8FE57C2E1740123000718EFE /* Default-568h@2x.png in Resources */,
-				8FE57C31174012CD00718EFE /* dark_dotted.png in Resources */,
-				8FE57C32174012CD00718EFE /* dark_dotted@2X.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,10 +221,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -256,10 +240,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -268,10 +256,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -279,10 +268,13 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

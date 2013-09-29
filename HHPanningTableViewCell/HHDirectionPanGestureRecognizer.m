@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, Pierre Bernard & Houdah Software s.à r.l.
+ * Copyright (c) 2012-2013, Pierre Bernard & Houdah Software s.à r.l.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

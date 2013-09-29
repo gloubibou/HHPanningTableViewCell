@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HHPanningTableViewCell"
-  s.version      = "0.0.3"
+  s.version      = "2.0.0"
   s.summary      = "HHPanningTableViewCell - Swipe to reveal."
   s.description  = <<-DESC
                    HHPanningTableViewCell is a UITableViewCell implementing "swipe to reveal" a drawer view. Such a view typically holds action buttons applying to the current row.
@@ -8,7 +8,6 @@ Pod::Spec.new do |s|
 This behavior is seen in a number of iOS applications. To my knowledge the idea was pioneered by Loren Brichter for Tweetie (aka Twitter for iPhone).
 
 The HHPanningTableViewCell implementation was written for the [ACTPrinter 4.0 application](https://itunes.apple.com/app/actprinter-virtual-printer/id296083171?mt=8).
-The code presented here is identical to the one used in the shipped product.
                    DESC
   s.homepage     = "https://github.com/gloubibou/HHPanningTableViewCell"
   s.license      = {
@@ -41,8 +40,8 @@ The code presented here is identical to the one used in the shipped product.
     LICENSE
   }
   s.author       = 'Pierre Bernard'
-  s.source       = { :git => "https://github.com/gloubibou/HHPanningTableViewCell.git", :tag => "0.0.3" }
-  s.platform     = :ios, '5.0'
+  s.source       = { :git => "https://github.com/gloubibou/HHPanningTableViewCell.git", :tag => "2.0.0" }
+  s.platform     = :ios, '6.1'
   s.source_files = 'Classes', 'HHPanningTableViewCell/**/*.{h,m}'
   s.public_header_files = 'HHPanningTableViewCell/**/*.h'
   s.framework  = 'QuartzCore'

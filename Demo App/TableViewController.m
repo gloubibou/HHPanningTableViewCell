@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, Pierre Bernard & Houdah Software s.à r.l.
+ * Copyright (c) 2012-2013, Pierre Bernard & Houdah Software s.à r.l.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -107,11 +107,9 @@
 			
 		UIView *drawerView = [[UIView alloc] initWithFrame:cell.frame];
 		
-        // dark_dotted.png obtained from http://subtlepatterns.com/dark-dot/
-        // Made by Tsvetelin Nikolov http://dribbble.com/bscsystem
-		drawerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dark_dotted"]];
+		drawerView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
 		
-		cell.drawerView = drawerView;		
+		cell.drawerView = drawerView;
 	}
 
     if (directionMask < 3) {
@@ -151,6 +149,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//
+//	if ([cell isKindOfClass:[HHPanningTableViewCell class]]) {
+//		HHPanningTableViewCell *panningTableViewCell = (HHPanningTableViewCell*)cell;
+//
+//		[panningTableViewCell setDrawerRevealed:YES animated:YES];
+//	}
+
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -
