@@ -550,6 +550,8 @@ static NSString *const												kTranslationContext		= @"translation";
 	UIView	*shadowView = self.shadowView;
 
 	[shadowView setCenter:center];
+    CGRect shadowFrame = CGRectInset([self bounds], HH_PANNING_SHADOW_INSET, 0.0f);
+    [shadowView setFrame:shadowFrame];
 }
 
 - (void)installViews
