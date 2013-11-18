@@ -129,10 +129,11 @@ static NSString *const												kTranslationContext		= @"translation";
 
 	self.delegate				= nil;
 
-	[self setDrawerRevealed:NO animated:NO];
-
 	self.directionMask			= 0;
 	self.shouldBounce			= YES;
+
+	[self.drawerView removeFromSuperview];
+	[self.shadowView removeFromSuperview];
 
 	self.drawerRevealed			= NO;
 	self.animationInProgress	= NO;
@@ -548,10 +549,9 @@ static NSString *const												kTranslationContext		= @"translation";
 	[drawerView setCenter:center];
 
 	UIView	*shadowView = self.shadowView;
+	CGRect shadowFrame = CGRectInset(bounds, HH_PANNING_SHADOW_INSET, 0.0f);
 
-	[shadowView setCenter:center];
-    CGRect shadowFrame = CGRectInset([self bounds], HH_PANNING_SHADOW_INSET, 0.0f);
-    [shadowView setFrame:shadowFrame];
+	[shadowView setFrame:shadowFrame];
 }
 
 - (void)installViews
