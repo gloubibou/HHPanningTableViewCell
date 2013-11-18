@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HHPanningTableViewCell"
-  s.version      = "2.0.0"
+  s.version      = "2.0.1"
   s.summary      = "HHPanningTableViewCell - Swipe to reveal."
   s.description  = <<-DESC
                    HHPanningTableViewCell is a UITableViewCell implementing "swipe to reveal" a drawer view. Such a view typically holds action buttons applying to the current row.
@@ -40,7 +40,7 @@ The HHPanningTableViewCell implementation was written for the [ACTPrinter 4.0 ap
     LICENSE
   }
   s.author       = 'Pierre Bernard'
-  s.source       = { :git => "https://github.com/gloubibou/HHPanningTableViewCell.git", :tag => "v2.0.0" }
+  s.source       = { :git => "https://github.com/gloubibou/HHPanningTableViewCell.git", :tag => "v2.0.1" }
   s.platform     = :ios, '6.1'
   s.source_files = 'Classes', 'HHPanningTableViewCell/**/*.{h,m}'
   s.public_header_files = 'HHPanningTableViewCell/**/*.h'
