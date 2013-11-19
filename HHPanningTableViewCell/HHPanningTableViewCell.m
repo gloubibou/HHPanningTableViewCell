@@ -227,6 +227,21 @@ static NSString *const												kTranslationContext		= @"translation";
 	}
 }
 
+- (void)setFrame:(CGRect)frame
+{
+	BOOL drawerRevealed = self.drawerRevealed;
+
+	self.transform = CGAffineTransformIdentity;
+
+	[super setFrame:frame];
+
+	if (drawerRevealed) {
+		HHPanningTableViewCellDirection		panDirection		= (self.translation > 0.0) ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
+
+		[self setDrawerRevealed:YES direction:panDirection animated:NO];
+	}
+}
+
 #pragma mark -
 #pragma mark API
 
@@ -549,9 +564,11 @@ static NSString *const												kTranslationContext		= @"translation";
 	[drawerView setCenter:center];
 
 	UIView	*shadowView = self.shadowView;
-	CGRect shadowFrame = CGRectInset(bounds, HH_PANNING_SHADOW_INSET, 0.0f);
 
-	[shadowView setFrame:shadowFrame];
+	CGRect	shadowBounds = CGRectInset(bounds, HH_PANNING_SHADOW_INSET, 0.0f);
+
+	[shadowView setBounds:shadowBounds];
+	[shadowView setCenter:center];
 }
 
 - (void)installViews
