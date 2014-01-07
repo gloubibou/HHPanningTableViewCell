@@ -52,6 +52,7 @@ typedef enum {
 @property (nonatomic, assign)				CGFloat								minimumPan;
 @property (nonatomic, assign)				CGFloat								maximumPan;
 @property (nonatomic, weak)                 id<HHPanningTableViewCellDelegate>  delegate;
+@property (nonatomic, assign)               BOOL                                shadowViewEnabled;
 
 - (BOOL)isDrawerRevealed;
 - (void)setDrawerRevealed:(BOOL)revealed animated:(BOOL)animated;

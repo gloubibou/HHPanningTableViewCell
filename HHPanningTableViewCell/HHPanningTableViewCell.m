@@ -579,7 +579,7 @@ static NSString *const												kTranslationContext		= @"translation";
 	UIView	*drawerView = self.drawerView;
 	UIView	*shadowView = self.shadowView;
 
-	if (shadowView == nil) {
+	if (self.shadowViewEnabled && shadowView == nil) {
 		shadowView		= [self createShadowView];
 
 		self.shadowView = shadowView;
@@ -587,8 +587,13 @@ static NSString *const												kTranslationContext		= @"translation";
 
 	[self placeViews];
 
-	[superview insertSubview:shadowView belowSubview:self];
-	[superview insertSubview:drawerView belowSubview:shadowView];
+    if (shadowView) {
+        [superview insertSubview:shadowView belowSubview:self];
+        [superview insertSubview:drawerView belowSubview:shadowView];
+    }
+    else {
+        [superview insertSubview:drawerView belowSubview:self];
+    }
 }
 
 - (UITableView *)superTableView
