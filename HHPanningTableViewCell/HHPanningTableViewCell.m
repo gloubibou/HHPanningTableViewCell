@@ -114,6 +114,7 @@ static NSString *const												kTranslationContext		= @"translation";
     self.drawerOffset               = HH_PANNING_DEFAULT_DRAWER_OFFSET;
     self.showAnimationDuration      = HH_PANNING_ANIMATION_DURATION;
     self.hideAnimationDuration      = HH_PANNING_ANIMATION_DURATION;
+    self.shadowViewEnabled          = YES;
     
 	[self addObserver:self forKeyPath:@"drawerRevealed" options:0 context:(__bridge void *)kDrawerRevealedContext];
 	[self addObserver:self forKeyPath:@"translation" options:0 context:(__bridge void *)kTranslationContext];
