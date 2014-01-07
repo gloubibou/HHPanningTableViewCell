@@ -42,7 +42,7 @@
 #define HH_PANNING_TRIGGER_OFFSET		100.0f
 #define HH_PANNING_SHADOW_INSET			-10.0f
 #define HH_PANNING_USE_VELOCITY			YES
-
+#define HH_PANNING_DEFAULT_DRAWER_OFFSET 0.0f
 
 @interface HHPanningTableViewCell () <UIGestureRecognizerDelegate>
 
@@ -111,7 +111,8 @@ static NSString *const												kTranslationContext		= @"translation";
 
 	self.minimumPan					= HH_PANNING_MINIMUM_PAN;
 	self.maximumPan					= HH_PANNING_MAXIMUM_PAN;
-
+    self.drawerOffset               = HH_PANNING_DEFAULT_DRAWER_OFFSET;
+    
 	[self addObserver:self forKeyPath:@"drawerRevealed" options:0 context:(__bridge void *)kDrawerRevealedContext];
 	[self addObserver:self forKeyPath:@"translation" options:0 context:(__bridge void *)kTranslationContext];
 }
@@ -295,10 +296,10 @@ static NSString *const												kTranslationContext		= @"translation";
 		CGFloat translation = 0.0f;
 
 		if (direction == HHPanningTableViewCellDirectionRight) {
-			translation = bounds.size.width;
+			translation = bounds.size.width - self.drawerOffset;
 		}
 		else {
-			translation = -bounds.size.width;
+			translation = -bounds.size.width + self.drawerOffset;
 		}
 
 		[self installViews];
