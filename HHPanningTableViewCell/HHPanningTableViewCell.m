@@ -112,6 +112,8 @@ static NSString *const												kTranslationContext		= @"translation";
 	self.minimumPan					= HH_PANNING_MINIMUM_PAN;
 	self.maximumPan					= HH_PANNING_MAXIMUM_PAN;
     self.drawerOffset               = HH_PANNING_DEFAULT_DRAWER_OFFSET;
+    self.showAnimationDuration      = HH_PANNING_ANIMATION_DURATION;
+    self.hideAnimationDuration      = HH_PANNING_ANIMATION_DURATION;
     
 	[self addObserver:self forKeyPath:@"drawerRevealed" options:0 context:(__bridge void *)kDrawerRevealedContext];
 	[self addObserver:self forKeyPath:@"translation" options:0 context:(__bridge void *)kTranslationContext];
@@ -289,7 +291,7 @@ static NSString *const												kTranslationContext		= @"translation";
 	UIView	*shadowView		= self.shadowView;
 	UIView	*contentView	= self.contentView;
 
-	CGFloat duration		= animated ? HH_PANNING_ANIMATION_DURATION : 0.0f;
+	CGFloat duration		= animated ? (revealed ? self.showAnimationDuration : self.hideAnimationDuration) : 0.0f;
 
 	if (revealed) {
 		CGRect	bounds		= [contentView frame];
@@ -315,7 +317,7 @@ static NSString *const												kTranslationContext		= @"translation";
 		};
 
 		if (animated) {
-			[UIView animateWithDuration:HH_PANNING_ANIMATION_DURATION
+			[UIView animateWithDuration:duration
 								  delay:0.0f
 								options:UIViewAnimationOptionCurveEaseOut
 							 animations:animations
