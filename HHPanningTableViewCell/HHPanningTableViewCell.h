@@ -30,8 +30,10 @@
 
 
 @class HHPanningTableViewCell;
+@class HHDirectionPanGestureRecognizer;
 @protocol HHPanningTableViewCellDelegate;
 
+typedef void (^HHDrawerRevealedCompletionBlock)(void);
 
 typedef enum {
 	HHPanningTableViewCellDirectionRight = UISwipeGestureRecognizerDirectionRight,
@@ -56,11 +58,16 @@ typedef enum {
 @property (nonatomic, assign)               CGFloat                             showAnimationDuration;
 @property (nonatomic, assign)               CGFloat                             hideAnimationDuration;
 
+- (BOOL)isPanningInProgress;
+- (BOOL)isPanning;
 - (BOOL)isDrawerRevealed;
 - (void)setDrawerRevealed:(BOOL)revealed animated:(BOOL)animated;
+- (void)setDrawerRevealed:(BOOL)revealed animated:(BOOL)animated completion:(HHDrawerRevealedCompletionBlock)completion;
+
+- (UIPanGestureRecognizer *)panGestureRecognizer;
+- (UIPanGestureRecognizer *)drawerPanGestureRecognizer;
 
 @end
-
 
 @protocol HHPanningTableViewCellDelegate <NSObject>
 
@@ -68,7 +75,12 @@ typedef enum {
 
 - (BOOL)panningTableViewCell:(HHPanningTableViewCell *)cell shouldReceivePanningTouch:(UITouch*)touch;
 
+- (BOOL)panningTableViewCell:(HHPanningTableViewCell *)cell shouldPanWithGestureRecognizer:(UIPanGestureRecognizer*)gestureRecognizer;
+
 // If implemented this this will be triggered instead of fully revealing
 - (void)panningTableViewCell:(HHPanningTableViewCell *)cell didTriggerWithDirection:(HHPanningTableViewCellDirection)direction;
+
+// If implemented this will be determine if the panning cell will recognize gesture recognizers simultaneously with another gesture recognizer
+- (BOOL)panningTableViewCell:(HHPanningTableViewCell *)cell shouldRecognizeGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer simultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
 @end
