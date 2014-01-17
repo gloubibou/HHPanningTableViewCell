@@ -42,7 +42,7 @@
 #define HH_PANNING_TRIGGER_OFFSET		100.0f
 #define HH_PANNING_SHADOW_INSET			-10.0f
 #define HH_PANNING_USE_VELOCITY			YES
-
+#define HH_PANNING_DEFAULT_DRAWER_OFFSET 0.0f
 
 @interface HHPanningTableViewCell () <UIGestureRecognizerDelegate>
 
@@ -56,6 +56,7 @@
 @property (nonatomic, assign) CGFloat								initialTranslation;
 @property (nonatomic, assign) HHPanningTableViewCellDirection		panDirection;
 @property (nonatomic, assign, getter = isPanning) BOOL				panning;
+@property (nonatomic, assign, getter = isPanningInProgress) BOOL				panningInProgress;
 
 - (void)panningTableViewCellInit;
 
@@ -111,7 +112,11 @@ static NSString *const												kTranslationContext		= @"translation";
 
 	self.minimumPan					= HH_PANNING_MINIMUM_PAN;
 	self.maximumPan					= HH_PANNING_MAXIMUM_PAN;
-
+    self.drawerOffset               = HH_PANNING_DEFAULT_DRAWER_OFFSET;
+    self.showAnimationDuration      = HH_PANNING_ANIMATION_DURATION;
+    self.hideAnimationDuration      = HH_PANNING_ANIMATION_DURATION;
+    self.shadowViewEnabled          = YES;
+    
 	[self addObserver:self forKeyPath:@"drawerRevealed" options:0 context:(__bridge void *)kDrawerRevealedContext];
 	[self addObserver:self forKeyPath:@"translation" options:0 context:(__bridge void *)kTranslationContext];
 }
@@ -141,6 +146,7 @@ static NSString *const												kTranslationContext		= @"translation";
 	self.translation			= 0.0f;
 	self.initialTranslation		= 0.0f;
 	self.panning				= NO;
+    self.panningInProgress      = NO;
 }
 
 - (UIView *)createShadowView
@@ -266,17 +272,27 @@ static NSString *const												kTranslationContext		= @"translation";
 
 - (void)setDrawerRevealed:(BOOL)revealed animated:(BOOL)animated
 {
-	NSInteger directionMask = self.directionMask;
+    [self setDrawerRevealed:revealed animated:animated completion:nil];
+}
 
+- (void)setDrawerRevealed:(BOOL)revealed animated:(BOOL)animated completion:(HHDrawerRevealedCompletionBlock)completion
+{
+    NSInteger directionMask = self.directionMask;
+    
 	if (HHPanningTableViewCellDirectionRight & directionMask) {
-		[self setDrawerRevealed:revealed direction:HHPanningTableViewCellDirectionRight animated:animated];
+		[self setDrawerRevealed:revealed direction:HHPanningTableViewCellDirectionRight animated:animated completion:completion];
 	}
 	else if (HHPanningTableViewCellDirectionLeft & directionMask) {
-		[self setDrawerRevealed:revealed direction:HHPanningTableViewCellDirectionLeft animated:animated];
+		[self setDrawerRevealed:revealed direction:HHPanningTableViewCellDirectionLeft animated:animated completion:completion];
 	}
 }
 
 - (void)setDrawerRevealed:(BOOL)revealed direction:(HHPanningTableViewCellDirection)direction animated:(BOOL)animated
+{
+    [self setDrawerRevealed:revealed direction:direction animated:animated completion:nil];
+}
+
+- (void)setDrawerRevealed:(BOOL)revealed direction:(HHPanningTableViewCellDirection)direction animated:(BOOL)animated completion:(HHDrawerRevealedCompletionBlock)completionBlock;
 {
 	if ([self isEditing] || (self.drawerView == nil)) {
 		return;
@@ -288,17 +304,17 @@ static NSString *const												kTranslationContext		= @"translation";
 	UIView	*shadowView		= self.shadowView;
 	UIView	*contentView	= self.contentView;
 
-	CGFloat duration		= animated ? HH_PANNING_ANIMATION_DURATION : 0.0f;
+	CGFloat duration		= animated ? (revealed ? self.showAnimationDuration : self.hideAnimationDuration) : 0.0f;
 
 	if (revealed) {
 		CGRect	bounds		= [contentView frame];
 		CGFloat translation = 0.0f;
 
 		if (direction == HHPanningTableViewCellDirectionRight) {
-			translation = bounds.size.width;
+			translation = bounds.size.width - self.drawerOffset;
 		}
 		else {
-			translation = -bounds.size.width;
+			translation = -bounds.size.width + self.drawerOffset;
 		}
 
 		[self installViews];
@@ -311,10 +327,14 @@ static NSString *const												kTranslationContext		= @"translation";
 
 		void	(^completion)(BOOL finished) = ^(BOOL finished) {
 			self.animationInProgress = NO;
+            
+            if (completionBlock) {
+                completionBlock();
+            }
 		};
 
 		if (animated) {
-			[UIView animateWithDuration:HH_PANNING_ANIMATION_DURATION
+			[UIView animateWithDuration:duration
 								  delay:0.0f
 								options:UIViewAnimationOptionCurveEaseOut
 							 animations:animations
@@ -333,10 +353,13 @@ static NSString *const												kTranslationContext		= @"translation";
 		self.animationInProgress = YES;
 
 		void	(^completion)(BOOL finished) = ^(BOOL finished) {
-			[drawerView removeFromSuperview];
-			[shadowView removeFromSuperview];
+            drawerView.hidden = YES;
+            shadowView.hidden = YES;
 
 			self.animationInProgress = NO;
+            if (completionBlock) {
+                completionBlock();
+            }
 		};
 
 		if (animated) {
@@ -391,7 +414,10 @@ static NSString *const												kTranslationContext		= @"translation";
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-	return YES;
+    if (gestureRecognizer.view == self || gestureRecognizer.view == self.drawerView)
+        return YES;
+        
+    return NO;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -417,6 +443,10 @@ static NSString *const												kTranslationContext		= @"translation";
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
+    if ([self.delegate respondsToSelector:@selector(panningTableViewCell:shouldRecognizeGestureRecognizer:simultaneouslyWithGestureRecognizer:)]) {
+        return [self.delegate panningTableViewCell:self shouldRecognizeGestureRecognizer:gestureRecognizer simultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    }
+    
 	if ([gestureRecognizer isKindOfClass:[HHDirectionPanGestureRecognizer class]]) {
 		HHDirectionPanGestureRecognizer *panGestureRecognizer = (HHDirectionPanGestureRecognizer *)gestureRecognizer;
 
@@ -431,6 +461,13 @@ static NSString *const												kTranslationContext		= @"translation";
 	if (self.animationInProgress) {
 		return;
 	}
+    
+    if ([self.delegate respondsToSelector:@selector(panningTableViewCell:shouldPanWithGestureRecognizer:)]) {
+        // Cancel panning if delegate returns should not pan
+        if (![self.delegate panningTableViewCell:self shouldPanWithGestureRecognizer:gestureRecognizer]) {
+            return;
+        }
+    }
 
 	UIGestureRecognizerState	state				= gestureRecognizer.state;
 	CGPoint						translationInView	= [gestureRecognizer translationInView:self];
@@ -442,6 +479,7 @@ static NSString *const												kTranslationContext		= @"translation";
 
 		self.initialTranslation = self.translation;
 		self.panning			= NO;
+        self.panningInProgress  = YES;
 	}
 	else if (state == UIGestureRecognizerStateChanged) {
 		CGFloat		translation		= self.translation;
@@ -498,6 +536,8 @@ static NSString *const												kTranslationContext		= @"translation";
 		CGFloat								initialTranslation	= self.initialTranslation;
 		CGFloat								deltaPan			= translation - initialTranslation;
 
+        self.panningInProgress = NO;
+        
 		if (deltaPan == 0) {
 			return;
 		}
@@ -569,6 +609,9 @@ static NSString *const												kTranslationContext		= @"translation";
 
 	[shadowView setBounds:shadowBounds];
 	[shadowView setCenter:center];
+
+    drawerView.hidden = NO;
+    shadowView.hidden = NO;
 }
 
 - (void)installViews
@@ -578,7 +621,7 @@ static NSString *const												kTranslationContext		= @"translation";
 	UIView	*drawerView = self.drawerView;
 	UIView	*shadowView = self.shadowView;
 
-	if (shadowView == nil) {
+	if (self.shadowViewEnabled && shadowView == nil) {
 		shadowView		= [self createShadowView];
 
 		self.shadowView = shadowView;
@@ -586,8 +629,13 @@ static NSString *const												kTranslationContext		= @"translation";
 
 	[self placeViews];
 
-	[superview insertSubview:shadowView belowSubview:self];
-	[superview insertSubview:drawerView belowSubview:shadowView];
+    if (shadowView) {
+        [superview insertSubview:shadowView belowSubview:self];
+        [superview insertSubview:drawerView belowSubview:shadowView];
+    }
+    else {
+        [superview insertSubview:drawerView belowSubview:self];
+    }
 }
 
 - (UITableView *)superTableView
