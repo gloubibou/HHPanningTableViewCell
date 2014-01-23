@@ -132,21 +132,7 @@ static NSString *const												kTranslationContext		= @"translation";
 {
 	[super prepareForReuse];
 
-	self.delegate				= nil;
-
-	self.directionMask			= 0;
-	self.shouldBounce			= YES;
-
-	[self.drawerView removeFromSuperview];
-	[self.shadowView removeFromSuperview];
-
-	self.drawerRevealed			= NO;
-	self.animationInProgress	= NO;
-
-	self.translation			= 0.0f;
-	self.initialTranslation		= 0.0f;
-	self.panning				= NO;
-    self.panningInProgress      = NO;
+	[self cleanup];
 }
 
 - (UIView *)createShadowView
@@ -178,8 +164,30 @@ static NSString *const												kTranslationContext		= @"translation";
 
 - (void)dealloc
 {
+    [self cleanup];
+    
 	[self removeObserver:self forKeyPath:@"drawerRevealed" context:(__bridge void *)kDrawerRevealedContext];
 	[self removeObserver:self forKeyPath:@"translation" context:(__bridge void *)kTranslationContext];
+}
+
+- (void)cleanup {
+	self.delegate				= nil;
+    
+	self.directionMask			= 0;
+	self.shouldBounce			= YES;
+    
+	[self.drawerView removeFromSuperview];
+	[self.shadowView removeFromSuperview];
+    
+    [self.superview setNeedsDisplay];
+    
+	self.drawerRevealed			= NO;
+	self.animationInProgress	= NO;
+    
+	self.translation			= 0.0f;
+	self.initialTranslation		= 0.0f;
+	self.panning				= NO;
+    self.panningInProgress      = NO;
 }
 
 #pragma mark -
