@@ -45,6 +45,7 @@ typedef enum {
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)reuseIdentifier;
 
+- (void)cleanup;
 
 @property (nonatomic, strong)	IBOutlet	UIView*								drawerView;
 @property (nonatomic, assign)               CGFloat                             drawerOffset;
