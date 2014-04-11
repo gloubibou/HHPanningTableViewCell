@@ -467,7 +467,7 @@ static NSString *const												kTranslationContext		= @"translation";
 - (void)gestureRecognizerDidPan:(UIPanGestureRecognizer *)gestureRecognizer
 {
 	if (self.animationInProgress) {
-		return;
+ 		return;
 	}
     
     if ([self.delegate respondsToSelector:@selector(panningTableViewCell:shouldPanWithGestureRecognizer:)]) {
@@ -547,6 +547,10 @@ static NSString *const												kTranslationContext		= @"translation";
         self.panningInProgress = NO;
         
 		if (deltaPan == 0) {
+            if (self.drawerView.superview != nil)
+                [self.drawerView removeFromSuperview];
+            if (self.shadowView.superview != nil)
+                [self.shadowView removeFromSuperview];
 			return;
 		}
 
