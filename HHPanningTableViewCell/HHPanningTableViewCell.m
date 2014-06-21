@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2013, Pierre Bernard & Houdah Software s.à r.l.
+ * Copyright (c) 2012-2014, Pierre Bernard & Houdah Software s.à r.l.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,7 @@
 @property (nonatomic, assign) CGFloat								initialTranslation;
 @property (nonatomic, assign) HHPanningTableViewCellDirection		panDirection;
 @property (nonatomic, assign, getter = isPanning) BOOL				panning;
-@property (nonatomic, assign, getter = isPanningInProgress) BOOL				panningInProgress;
+@property (nonatomic, assign, getter = isPanningInProgress) BOOL	panningInProgress;
 
 - (void)panningTableViewCellInit;
 
@@ -170,7 +170,8 @@ static NSString *const												kTranslationContext		= @"translation";
 	[self removeObserver:self forKeyPath:@"translation" context:(__bridge void *)kTranslationContext];
 }
 
-- (void)cleanup {
+- (void)cleanup
+{
 	self.delegate				= nil;
     
 	self.directionMask			= 0;
@@ -422,9 +423,10 @@ static NSString *const												kTranslationContext		= @"translation";
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    if (gestureRecognizer.view == self || gestureRecognizer.view == self.drawerView)
+    if (gestureRecognizer.view == self || gestureRecognizer.view == self.drawerView) {
         return YES;
-        
+	}
+	
     return NO;
 }
 
@@ -435,7 +437,7 @@ static NSString *const												kTranslationContext		= @"translation";
 	if (shouldReceiveTouch) {
 		UITableView *tableView = (id)[self superTableView];
 
-		shouldReceiveTouch = ! (tableView.isDragging || tableView.isDecelerating);
+		shouldReceiveTouch = ! (tableView.isTracking || tableView.isDragging || tableView.isDecelerating);
 	}
 
 	if (shouldReceiveTouch) {
@@ -462,6 +464,17 @@ static NSString *const												kTranslationContext		= @"translation";
 	}
 
 	return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+	UITableView *tableView = [self superTableView];
+
+	if (otherGestureRecognizer == tableView.panGestureRecognizer) {
+		return YES;
+	}
+
+	return NO;
 }
 
 - (void)gestureRecognizerDidPan:(UIPanGestureRecognizer *)gestureRecognizer
@@ -546,38 +559,37 @@ static NSString *const												kTranslationContext		= @"translation";
 
         self.panningInProgress = NO;
         
-		if (deltaPan == 0) {
-            if (self.drawerView.superview != nil)
-                [self.drawerView removeFromSuperview];
-            if (self.shadowView.superview != nil)
-                [self.shadowView removeFromSuperview];
-			return;
-		}
-
-		BOOL								isOffsetRight		= (initialTranslation > 0.0);
+		BOOL								isOffsetRight		= (initialTranslation > 0.0f);
 		HHPanningTableViewCellDirection		panDirection		= (deltaPan > 0.0f) ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
-		NSInteger							directionMask		= self.directionMask;
+		HHPanningTableViewCellDirection		direction;
 
-		if (drawerRevealed) {
-			directionMask = isOffsetRight ?  HHPanningTableViewCellDirectionLeft : HHPanningTableViewCellDirectionRight;
+		if ((state == UIGestureRecognizerStateCancelled) || (deltaPan == 0.0f)) {
+			drawerRevealed = drawerWasRevealed;
 		}
+		else {
+			NSInteger							directionMask		= self.directionMask;
 
-		if (panDirection & directionMask) {
-			CGFloat triggerOffset = HH_PANNING_TRIGGER_OFFSET;
-
-			if (fabsf(translation) > triggerOffset) {
-				drawerRevealed = !drawerRevealed;
+			if (drawerRevealed) {
+				directionMask = isOffsetRight ?  HHPanningTableViewCellDirectionLeft : HHPanningTableViewCellDirectionRight;
 			}
-			else if (HH_PANNING_USE_VELOCITY) {
-				CGFloat velocity = [gestureRecognizer velocityInView:self].x;
 
-				if (fabsf(velocity) > triggerOffset) {
+			if (panDirection & directionMask) {
+				CGFloat triggerOffset = HH_PANNING_TRIGGER_OFFSET;
+
+				if (fabsf(translation) > triggerOffset) {
 					drawerRevealed = !drawerRevealed;
 				}
-			}
-		}
+				else if (HH_PANNING_USE_VELOCITY) {
+					CGFloat velocity = [gestureRecognizer velocityInView:self].x;
 
-		HHPanningTableViewCellDirection direction = panDirection;
+					if (fabsf(velocity) > triggerOffset) {
+						drawerRevealed = !drawerRevealed;
+					}
+				}
+			}
+
+			direction = panDirection;
+		}
 
 		if (drawerRevealed == drawerWasRevealed) {
 			direction = isOffsetRight ? HHPanningTableViewCellDirectionRight : HHPanningTableViewCellDirectionLeft;
