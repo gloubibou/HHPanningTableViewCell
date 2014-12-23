@@ -175,7 +175,7 @@
 #pragma mark -
 #pragma mark HHPanningTableViewCellDelegate
 
-- (void)panningTableViewCellDidTrigger:(HHPanningTableViewCell *)cell inDirection:(HHPanningTableViewCellDirection)direction
+- (void)panningTableViewCell:(HHPanningTableViewCell *)cell didTriggerWithDirection:(HHPanningTableViewCellDirection)direction
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Custom Action"
                                                     message:@"You triggered a custom action"
