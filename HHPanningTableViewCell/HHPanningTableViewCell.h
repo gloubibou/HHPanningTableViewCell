@@ -36,8 +36,8 @@
 typedef void (^HHDrawerRevealedCompletionBlock)(void);
 
 typedef enum {
-	HHPanningTableViewCellDirectionRight = UISwipeGestureRecognizerDirectionRight,
-	HHPanningTableViewCellDirectionLeft = UISwipeGestureRecognizerDirectionLeft,
+    HHPanningTableViewCellDirectionRight = UISwipeGestureRecognizerDirectionRight,
+    HHPanningTableViewCellDirectionLeft = UISwipeGestureRecognizerDirectionLeft,
 } HHPanningTableViewCellDirection;
 
 
@@ -48,6 +48,8 @@ typedef enum {
 - (void)cleanup;
 
 @property (nonatomic, strong)	IBOutlet	UIView*								drawerView;
+@property (nonatomic, strong)	IBOutlet	UIView*								drawerLeftView;
+@property (nonatomic, strong)	IBOutlet	UIView*								drawerRightView;
 @property (nonatomic, assign)               CGFloat                             drawerOffset;
 
 @property (nonatomic, assign)				NSInteger							directionMask;

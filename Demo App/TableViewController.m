@@ -117,11 +117,23 @@
 		cell = [[HHPanningTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
 											  reuseIdentifier:CellIdentifier];
 			
-		UIView *drawerView = [[UIView alloc] initWithFrame:cell.frame];
-		
-		drawerView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
-		
-		cell.drawerView = drawerView;
+        if (directionMask < 4) {
+            UIView *drawerView = [[UIView alloc] initWithFrame:cell.frame];
+            
+            drawerView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
+            
+            cell.drawerView = drawerView;
+        } else {
+            // display a green drawer from the left, and a red drawer from the right
+            
+            UIView *drawerView = [[UIView alloc] initWithFrame:cell.frame];
+            drawerView.backgroundColor = [UIColor greenColor];
+            cell.drawerLeftView = drawerView;
+            
+            drawerView = [[UIView alloc] initWithFrame:cell.frame];
+            drawerView.backgroundColor = [UIColor redColor];
+            cell.drawerRightView = drawerView;
+        }
 	}
 
     if (directionMask < 3) {
