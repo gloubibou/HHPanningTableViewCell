@@ -126,6 +126,22 @@ static NSString *const												kTranslationContext		= @"translation";
 	if ([super respondsToSelector:@selector(awakeFromNib)]) {
 		[super awakeFromNib];
 	}
+
+    
+    for(NSLayoutConstraint *cellConstraint in self.constraints){
+        [self removeConstraint:cellConstraint];
+        id firstItem = cellConstraint.firstItem == self ? self.contentView : cellConstraint.firstItem;
+        id seccondItem = cellConstraint.secondItem == self ? self.contentView : cellConstraint.secondItem;
+        NSLayoutConstraint* contentViewConstraint =
+        [NSLayoutConstraint constraintWithItem:firstItem
+                                     attribute:cellConstraint.firstAttribute
+                                     relatedBy:cellConstraint.relation
+                                        toItem:seccondItem
+                                     attribute:cellConstraint.secondAttribute
+                                    multiplier:cellConstraint.multiplier
+                                      constant:cellConstraint.constant];
+        [self.contentView addConstraint:contentViewConstraint];
+    }
 }
 
 - (void)prepareForReuse
